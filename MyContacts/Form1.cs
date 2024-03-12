@@ -12,12 +12,11 @@ namespace MyContacts
 {
     public partial class Form1 : Form
     {
-        IContactsRepository repository;
+        UnitOfWork db = new UnitOfWork();
 
         public Form1()
         {
             InitializeComponent();
-            repository = new ContactsRepository();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -28,11 +27,11 @@ namespace MyContacts
 
         private void BindGrid()
         {
-            using (Contact_DBEntities db = new Contact_DBEntities())
+            using (UnitOfWork db = new UnitOfWork())
             {
                 dgContacts.AutoGenerateColumns = false;
                 dgContacts.Columns[0].Visible = false;
-                dgContacts.DataSource = db.MyContacts.ToList();
+                dgContacts.DataSource = db.contactsRepository.GetAllContacts();
             }
 
         }
@@ -62,11 +61,11 @@ namespace MyContacts
                 if (MessageBox.Show($"آیا از حذف {fullname} مطمئن هستید ؟", "توجه", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     int contactId = int.Parse(dgContacts.CurrentRow.Cells[0].Value.ToString());
-                    using (Contact_DBEntities db = new Contact_DBEntities())
+                    using (UnitOfWork db = new UnitOfWork())
                     {
-                        MyContact contact = db.MyContacts.Single(c => c.ContactID == contactId);
+                        MyContact contact = db.contactsRepository.GetContactById(contactId);
                     }
-                    repository.Delete(contactId);
+                    db.contactsRepository.DeleteContact(contactId);
                     BindGrid();
                 }
             }

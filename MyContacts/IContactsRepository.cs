@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace MyContacts
 {
-    interface IContactsRepository
+    public interface IContactsRepository
     {
-        DataTable SelectAll();
-        DataTable SelectRow(int contactId);
-        DataTable Search(string parameter);
-        bool Insert(string name, string family, int age, string mobile, string email, string address);
+        List<MyContact> GetAllContacts();
+        MyContact GetContactById(int contactId);
+        IEnumerable<MyContact> GetContactsByFilter(string parameter);
+        bool InsertContact(MyContact contact);
 
-        bool Update(int contactId, string name, string family, int age, string mobile, string email, string address);
+        bool UpdateContact(MyContact contact);
 
-        bool Delete(int contactId);
+        bool DeleteContact(MyContact contact);
 
-        
-        
+        bool DeleteContact(int contactId);
+
     }
 }

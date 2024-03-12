@@ -13,13 +13,11 @@ namespace MyContacts
 {
     public partial class frmAddOrEdit : Form
     {
-        //IContactsRepository repository;
-        Contact_DBEntities db = new Contact_DBEntities();
+        UnitOfWork db = new UnitOfWork();
         public int contactId = 0;
         public frmAddOrEdit()
         {
             InitializeComponent();
-            //repository = new ContactsRepository();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -37,7 +35,7 @@ namespace MyContacts
                     contact.Mobile = txtMobile.Text;
                     contact.Address = txtAddress.Text;
                     contact.Email = txtEmail.Text;
-                    db.MyContacts.Add(contact);
+                    db.contactsRepository.InsertContact(contact);
                 }
                 else
                 {
@@ -46,7 +44,7 @@ namespace MyContacts
                     //contact.ContactID = contactId;
                     //db.Entry(contact).State = EntityState.Modified;
 
-                    var contact = db.MyContacts.Find(contactId);
+                    var contact = db.contactsRepository.GetContactById(contactId);
                     contact.Name = txtName.Text;
                     contact.Family = txtFamily.Text;
                     contact.Age = (int)txtAge.Value;
@@ -55,12 +53,12 @@ namespace MyContacts
                     contact.Address = txtAddress.Text;
                 }
 
-                db.SaveChanges();
+                db.Save();
 
                 //if (isSuccess == true)
                 //{
-                    MessageBox.Show("عملیات با موفقیت انجام شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DialogResult = DialogResult.OK;
+                MessageBox.Show("عملیات با موفقیت انجام شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
                 //}
                 //else
                 //{
@@ -79,7 +77,7 @@ namespace MyContacts
             {
                 this.Text = "ویرایش شخص";
                 //DataTable dt = repository.SelectRow(contactId);
-                MyContact contact = db.MyContacts.Find(contactId);
+                MyContact contact = db.contactsRepository.GetContactById(contactId);
                 txtName.Text = contact.Name;
                 txtFamily.Text = contact.Family;
                 txtMobile.Text = contact.Mobile;

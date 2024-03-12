@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Contact_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="fintmoi1_MyContactsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MyContact">
           <Key>
             <PropertyRef Name="ContactID" />
@@ -17,14 +17,14 @@
           <Property Name="Age" Type="int" Nullable="false" />
           <Property Name="Address" Type="nvarchar(max)" />
         </EntityType>
-        <EntityContainer Name="Contact_DBModelStoreContainer">
+        <EntityContainer Name="fintmoi1_MyContactsModelStoreContainer">
           <EntitySet Name="MyContact" EntityType="Self.MyContact" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Contact_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="fintmoi1_MyContactsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="MyContact">
           <Key>
             <PropertyRef Name="ContactID" />
@@ -45,9 +45,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Contact_DBModelStoreContainer" CdmEntityContainer="Contact_DBEntities">
+        <EntityContainerMapping StorageEntityContainer="fintmoi1_MyContactsModelStoreContainer" CdmEntityContainer="Contact_DBEntities">
           <EntitySetMapping Name="MyContacts">
-            <EntityTypeMapping TypeName="Contact_DBModel.MyContact">
+            <EntityTypeMapping TypeName="fintmoi1_MyContactsModel.MyContact">
               <MappingFragment StoreEntitySet="MyContact">
                 <ScalarProperty Name="ContactID" ColumnName="ContactID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

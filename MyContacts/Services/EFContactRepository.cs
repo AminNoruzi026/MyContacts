@@ -1,42 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyContacts.Services
 {
-    class EFContactRepository : IContactsRepository
+    public class EFContactRepository : IContactsRepository
     {
-        public bool Delete(int contactId)
+        private Contact_DBEntities db;
+
+        public EFContactRepository(Contact_DBEntities context)
         {
-            throw new NotImplementedException();
+            db = context;
+        }
+        public bool DeleteContact(MyContact contact)
+        {
+            try
+            {
+                db.Entry(contact).State = EntityState.Deleted;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public bool Insert(string name, string family, int age, string mobile, string email, string address)
+        public bool DeleteContact(int contactId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var contact = GetContactById(contactId);
+                DeleteContact(contact);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public DataTable Search(string parameter)
+        public List<MyContact> GetAllContacts()
         {
-            throw new NotImplementedException();
+            return db.MyContacts.ToList();
         }
 
-        public DataTable SelectAll()
+        public MyContact GetContactById(int contactId)
         {
-            throw new NotImplementedException();
+            return db.MyContacts.Find(contactId);
         }
 
-        public DataTable SelectRow(int contactId)
+        public IEnumerable<MyContact> GetContactsByFilter(string parameter)
         {
-            throw new NotImplementedException();
+            return db.MyContacts.Where(c => c.Name.Contains(parameter) || c.Family.Contains(parameter) || c.Mobile.Contains(parameter)|| c.Email.Contains(parameter)|| c.Address.Contains(parameter)).ToList();
+
         }
 
-        public bool Update(int contactId, string name, string family, int age, string mobile, string email, string address)
+        public bool InsertContact(MyContact contact)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.MyContacts.Add(contact);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateContact(MyContact contact)
+        {
+            try
+            {
+                db.Entry(contact).State = EntityState.Modified;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

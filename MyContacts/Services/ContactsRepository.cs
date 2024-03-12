@@ -10,7 +10,14 @@ namespace MyContacts
 {
     class ContactsRepository : IContactsRepository
     {
-        private string connectionString = "Data Source=.;Initial Catalog=Contact_DB;Integrated Security=true";
+        private Contact_DBEntities db;
+
+        public ContactsRepository(Contact_DBEntities context)
+        {
+            db = context;
+        }
+
+        private string connectionString = "Data Source=185.252.29.60,2022;Database=fintmoi1_MyContacts;Integrated Security=false;User ID=fintmoi1_MyContactsUser;Password=@Amin@7731@;providerName=System.Data.SqlClient";
 
         public bool Delete(int contactId)
         {
@@ -33,6 +40,31 @@ namespace MyContacts
             {
                 connection.Close();
             }
+        }
+
+        public bool DeleteContact(MyContact contact)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteContact(int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<MyContact> GetAllContacts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public MyContact GetContactById(int contactId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MyContact> GetContactsByFilter(string parameter)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Insert(string name, string family, int age, string mobile, string email, string address)
@@ -62,6 +94,11 @@ namespace MyContacts
             {
                 connection.Close();
             }
+        }
+
+        public bool InsertContact(MyContact contact)
+        {
+            throw new NotImplementedException();
         }
 
         public DataTable Search(string parameter)
@@ -122,6 +159,11 @@ namespace MyContacts
             {
                 connection.Close();
             }
+        }
+
+        public bool UpdateContact(MyContact contact)
+        {
+            throw new NotImplementedException();
         }
     }
 }
