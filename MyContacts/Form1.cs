@@ -31,7 +31,7 @@ namespace MyContacts
             {
                 dgContacts.AutoGenerateColumns = false;
                 dgContacts.Columns[0].Visible = false;
-                dgContacts.DataSource = db.contactsRepository.GetAllContacts();
+                dgContacts.DataSource = db.contactsRepository.GetAllContacts().OrderByDescending(b => b.ContactID).ToList();
             }
 
         }
@@ -66,6 +66,7 @@ namespace MyContacts
                         MyContact contact = db.contactsRepository.GetContactById(contactId);
                     }
                     db.contactsRepository.DeleteContact(contactId);
+                    db.Save();
                     BindGrid();
                 }
             }
@@ -93,11 +94,11 @@ namespace MyContacts
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            using (Contact_DBEntities db=new Contact_DBEntities())
+            using (UnitOfWork db = new UnitOfWork())
             {
-                dgContacts.DataSource = db.MyContacts.Where(c => c.Name.Contains(txtSearch.Text) || c.Family.Contains(txtSearch.Text)).ToList();
+                dgContacts.DataSource = db.contactsRepository.GetContactsByFilter(txtSearch.Text);
             }
-                
+
         }
     }
 }

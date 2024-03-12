@@ -55,7 +55,7 @@ namespace MyContacts.Services
 
         public IEnumerable<MyContact> GetContactsByFilter(string parameter)
         {
-            return db.MyContacts.Where(c => c.Name.Contains(parameter) || c.Family.Contains(parameter) || c.Mobile.Contains(parameter)|| c.Email.Contains(parameter)|| c.Address.Contains(parameter)).ToList();
+            return db.MyContacts.Where(c => c.Name.Contains(parameter) || c.Family.Contains(parameter) || c.Mobile.Contains(parameter)|| c.Email.Contains(parameter)|| c.Address.Contains(parameter)|| c.Age.ToString().Contains(parameter)).ToList();
 
         }
 
